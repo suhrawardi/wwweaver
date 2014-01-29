@@ -1,4 +1,4 @@
-defmodule Wwwrapper.Supervisor do
+defmodule Wwweaver.Supervisor do
   use Supervisor.Behaviour
 
   def start_link do
@@ -8,7 +8,7 @@ defmodule Wwwrapper.Supervisor do
   def init([]) do
     children = [
       # Define workers and child supervisors to be supervised
-      # worker(Wwwrapper.Worker, [])
+      # worker(Wwweaver.Worker, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/Supervisor.Behaviour.html
