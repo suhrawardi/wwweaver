@@ -3,7 +3,14 @@ use Wwweaver.Database
 
 defmodule Wwweaver.Process do
 
-  def crawl(uri, fun) do
+  def start(uri, fun) do
+    Wwweaver.Database.initialize
+    Amnesia.start
+    crawl(uri, fun)
+    Amnesia.stop
+  end
+
+  defp crawl(uri, fun) do
     unless Wwweaver.Page.exists?({:uri, uri}) do
       Wwweaver.Page.add_uri(uri)
       Wwweaver.Fetcher.get(uri)
