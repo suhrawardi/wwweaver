@@ -51,15 +51,14 @@ defmodule Wwweaver.Process do
   end
 
   defp extract_urls(html) do
-    regexes = ["<a.+href=\"([^\"]+)\".+>[^<]+</a>",
-               "<link.+href=\"([^\"]+)\".+/>",
-               "<script.+src=\"([^\"]+)\".+/>"]
+    regexes = [%r/<a.+href=\"([^\"]+)\".+>[^<]+<\/a>/i,
+               %r/<link.+href=\"([^\"]+)\".+\/>/is,
+               %r/<script.+src=\"([^\"]+)\".+><\/script>/is]
     List.flatten(regexes |> Enum.map(&extract(&1, html)))
   end
 
   defp extract(regex, html) do
-    {_, pattern} = Regex.compile(regex)
-    filter_urls(Regex.scan(pattern, html))
+    filter_urls(Regex.scan(regex, html))
   end
 
   defp filter_urls(list) do
